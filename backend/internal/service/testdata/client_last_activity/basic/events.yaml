@@ -1,0 +1,20 @@
+description: Events spread across days to validate last activity detection
+
+events:
+  - clientId: client-active
+    dateDir: 2025-01-02
+    id: event-early
+    timestamp: 2025-01-02T15:30:00Z
+    eventType: push
+    source: github.com/example/repo
+    status: success
+    statusCode: 200
+
+  - clientId: client-active
+    dateDir: 2025-01-03
+    id: event-latest
+    timestamp: 2025-01-03T08:45:12Z
+    eventType: push
+    source: github.com/example/repo
+    status: success
+    statusCode: 200

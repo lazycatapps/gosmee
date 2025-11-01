@@ -1,0 +1,16 @@
+description: gosmee 事件解析结果
+expected:
+  id: evt-gosmee-001
+  clientId: client-gosmee
+  timestamp: 2025-01-18T03:12:45Z
+  eventType: push
+  source: github.com/example/repo
+  status: success
+  statusCode: 202
+  latencyMs: 128
+  payload: '{"hello":"world"}'
+  response: '{"body":{"ok":true},"latency_ms":128,"status_code":202}'
+  errorMessage: ""
+  headers:
+    Content-Type: application/json
+    X-GitHub-Event: push

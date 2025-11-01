@@ -1,0 +1,23 @@
+{
+  "id": "event-structured",
+  "client_id": "client-structured",
+  "timestamp": "2025-01-18T03:12:45Z",
+  "event_type": "push",
+  "source": "github.com/example/repo",
+  "status": "success",
+  "status_code": 202,
+  "latency_ms": 128,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "payload": {
+    "hello": "world"
+  },
+  "response": {
+    "status_code": 202,
+    "latency_ms": 128,
+    "body": {
+      "ok": true
+    }
+  }
+}

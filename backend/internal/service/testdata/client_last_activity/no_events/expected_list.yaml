@@ -1,0 +1,5 @@
+description: Expected list response when no events exist
+
+expectations:
+  - clientId: client-empty
+    lastActivity: ""

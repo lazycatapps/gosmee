@@ -1,0 +1,11 @@
+description: structured event with metadata
+clientId: client-structured
+fileName: event-structured.json
+eventFile: event.json
+expected:
+  id: event-structured
+  status: success
+  statusCode: 202
+  latencyMs: 128
+  timestamp: 2025-01-18T03:12:45Z
+  payloadContains: '"hello":"world"'

@@ -1,0 +1,8 @@
+description: Expected last activity returned by Get and GetStats flows
+
+expectations:
+  - clientId: client-active
+    lastActivity: 2025-01-03T08:45:12Z
+
+  - clientId: client-idle
+    lastActivity: ""

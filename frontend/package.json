@@ -1,0 +1,50 @@
+{
+  "name": "frontend",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "antd": "^5.27.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^5.1.0"
+  },
+  "scripts": {
+    "start": "NODE_OPTIONS=--no-deprecation node ./node_modules/react-scripts/bin/react-scripts.js start",
+    "build": "NODE_OPTIONS=--no-deprecation node ./node_modules/react-scripts/bin/react-scripts.js build",
+    "test": "node ./node_modules/react-scripts/bin/react-scripts.js test",
+    "eject": "node ./node_modules/react-scripts/bin/react-scripts.js eject",
+    "postinstall": "node ./node_modules/patch-package/dist/index.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "overrides": {
+    "nth-check": "^2.1.1",
+    "postcss": "^8.4.31",
+    "webpack-dev-server": "^4.15.1",
+    "svgo": "^2.8.0"
+  },
+  "devDependencies": {
+    "patch-package": "^8.0.1"
+  }
+}

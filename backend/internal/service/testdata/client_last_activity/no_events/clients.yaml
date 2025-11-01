@@ -1,0 +1,13 @@
+description: Single client without any recorded events
+userId: solitary
+
+clients:
+  - id: client-empty
+    userId: solitary
+    name: Empty Instance
+    description: Instance without activity
+    status: stopped
+    smeeUrl: https://smee.io/empty
+    targetUrl: https://example.net/webhook
+    createdAt: 2025-01-05T12:00:00Z
+    updatedAt: 2025-01-05T12:00:00Z

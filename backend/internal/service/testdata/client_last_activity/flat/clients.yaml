@@ -1,0 +1,14 @@
+description: Client fixtures using flat event file structure
+userId: flat-user
+
+clients:
+  - id: client-flat
+    userId: flat-user
+    name: Flat Layout Instance
+    description: Instance storing events directly under events directory
+    status: running
+    smeeUrl: https://smee.io/flat
+    targetUrl: https://hooks.example.com/flat
+    createdAt: 2025-02-01T08:00:00Z
+    updatedAt: 2025-02-02T09:00:00Z
+

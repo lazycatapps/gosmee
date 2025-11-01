@@ -1,0 +1,17 @@
+description: 标准 gosmee 事件，payload 为对象
+event:
+  id: evt-gosmee-001
+  client_id: client-gosmee
+  timestamp: 2025-01-18T03:12:45Z
+  event_type: push
+  source: github.com/example/repo
+  headers:
+    Content-Type: application/json
+    X-GitHub-Event: push
+  response:
+    status_code: 202
+    latency_ms: 128
+    body:
+      ok: true
+  payload:
+    hello: world

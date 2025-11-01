@@ -1,0 +1,20 @@
+description: Root-level event files emulating gosmee output
+
+events:
+  - clientId: client-flat
+    dateDir: ""
+    id: 2025-02-03T10.15.30.000Z
+    timestamp: 2025-02-03T10:15:30Z
+    eventType: push
+    source: github.com/example/flat
+    status: success
+    statusCode: 200
+
+  - clientId: client-flat
+    dateDir: ""
+    id: 2025-02-04T12.45.10.000Z
+    timestamp: 2025-02-04T12:45:10Z
+    eventType: pull_request
+    source: github.com/example/flat
+    status: success
+    statusCode: 200

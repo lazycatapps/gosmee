@@ -1,0 +1,11 @@
+description: raw payload stored by gosmee
+clientId: client-raw
+fileName: 2025-11-01T08.58.11.102.json
+eventFile: event.json
+expected:
+  id: 2025-11-01T08.58.11.102
+  status: not_replayed
+  statusCode: 0
+  latencyMs: 0
+  timestamp: 2025-11-01T08:58:11.102Z
+  payloadContains: ItemId

@@ -1,0 +1,4 @@
+[{"ItemId":"item1","Categories":["music","demo"],"Timestamp":"2024-05-24T12:00:00Z"},
+{"ItemId":"item2","Categories":["movie","demo"],"Timestamp":"2024-05-24T12:05:00Z"},
+{"ItemId":"item3","Categories":["tech","demo"],"Timestamp":"2024-05-24T12:10:00Z"},
+{"ItemId":"item4","Categories":["music"],"Timestamp":"2024-05-24T12:15:00Z"}]

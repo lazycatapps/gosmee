@@ -1,0 +1,182 @@
+# ========== 一、基本信息 ==========
+
+# 应用唯一 ID (全球唯一,建议以域名开头)
+package: cloud.lazycat.app.liu.gosmee
+
+# 应用版本号
+version: 0.0.1
+
+# 应用名称
+name: Gosmee Web UI
+
+# 关键词
+keyword: gosmee, webhook, relay, sse, github, gitlab
+
+# 应用描述
+description: Webhook 中继管理工具，基于 Gosmee，提供简洁的 Web UI 界面用于管理多个 gosmee client 实例
+
+# ========== 二、本地化配置 ==========
+locales:
+  zh:
+    name: Gosmee Web UI
+    description: |
+      ## Gosmee Web UI - Webhook 中继管理工具
+
+      基于 Gosmee 的 Webhook 中继管理平台，提供简洁的 Web UI 界面，用于管理和监控多个 gosmee client 实例。
+
+      将公网 Webhook（如 GitHub、GitLab）安全转发到内网服务，无需暴露端口，无需配置防火墙。
+
+      📖 **快速开始**: [查看详细使用文档](https://github.com/lazycatapps/gosmee/blob/main/QUICKSTART.md)
+
+      ### 核心特性
+      - 🔒 无需端口转发，通过 SSE 拉取事件
+      - 🛡️ Client 主动连接，无需入站防火墙规则
+      - 🔄 事件历史保存和重放，便于调试
+      - 📊 实时日志监控和事件查看
+      - 👥 OIDC 统一认证，用户级数据隔离
+
+      ### 典型场景
+      - 本地开发调试：GitHub Webhook → localhost:3000
+      - 防火墙内测试：公网 Webhook → 内网服务
+      - CI/CD 集成：转发到 Kubernetes 集群内部服务
+
+      ### 相关链接
+      - 📖 [快速开始](https://github.com/lazycatapps/gosmee/blob/main/QUICKSTART.md)
+      - 🏠 [项目主页](https://github.com/lazycatapps/gosmee)
+      - 🔧 [Gosmee 官方](https://github.com/chmouel/gosmee)
+
+  en:
+    name: Gosmee Web UI
+    description: |
+      ## Gosmee Web UI - Webhook Relay Management Tool
+
+      A webhook relay management platform based on Gosmee, providing a clean Web UI for managing and monitoring multiple gosmee client instances.
+
+      Securely forward public webhooks (GitHub, GitLab) to internal services without port exposure or firewall configuration.
+
+      📖 **Quick Start**: [View Documentation](https://github.com/lazycatapps/gosmee/blob/main/QUICKSTART.md)
+
+      ### Core Features
+      - 🔒 No port forwarding, pulls events via SSE
+      - 🛡️ Client actively connects, no inbound firewall rules
+      - 🔄 Event history and replay for debugging
+      - 📊 Real-time logs and event viewer
+      - 👥 OIDC authentication with user-level isolation
+
+      ### Typical Use Cases
+      - Local development: GitHub Webhook → localhost:3000
+      - Behind firewall: Public Webhook → Internal service
+      - CI/CD integration: Forward to Kubernetes cluster services
+
+      ### Related Links
+      - 📖 [Quick Start](https://github.com/lazycatapps/gosmee/blob/main/QUICKSTART.md)
+      - 🏠 [Project](https://github.com/lazycatapps/gosmee)
+      - 🔧 [Gosmee](https://github.com/chmouel/gosmee)
+
+# ========== 三、许可证和主页 ==========
+
+# 软件 license
+license: https://github.com/chmouel/gosmee?tab=Apache-2.0-1-ov-file#readme
+
+# 软件主页
+homepage: https://github.com/chmouel/gosmee
+
+# lpk 作者
+author: liu
+
+# ========== 四、Application 配置 ==========
+
+# application 作为一个特殊的 container 运行，对应的 service 名称为固定的 `app`
+# 其他 service 可以通过此名称与 app 进行通讯
+application:
+  # 是否存在后台任务，若存在则系统不会对此 app 进行主动休眠
+  background_task: true
+
+  # 期望的 app 域名，如果系统中已经有对应域名则会提示用户选择其他域名
+  # 最终 app 分配到的域名以 /lzcapp/run/app.subdomain 为准
+  subdomain: gosmee
+
+  # OIDC 认证回调路径
+  oidc_redirect_path: /api/v1/auth/callback
+
+  # HTTP 路由规则
+  routes:
+    # 前端静态文件服务
+    - /=file:///lzcapp/pkg/content/web
+    # 后端 API 代理
+    - /api/=http://backend:8080/api/
+
+  public_path:
+    - /                         # 无需登录即可访问
+
+  # 依赖的其他容器服务
+  depends_on:
+    - backend
+
+  # 是否启用多实例
+  multi_instance: false
+
+# ========== 五、Services 配置 ==========
+
+services:
+  # Backend 后端服务
+  backend:
+    # 使用占位符，构建时会替换为实际镜像地址
+    image: ##IMAGE_PLACEHOLDER##
+    # image: docker-registry-ui.${LAZYCAT_BOX_NAME}.heiyu.space/gosmee/backend:latest
+    # 运行用户（非 root 用户，UID 65532）
+    user: 65532
+    # 安装脚本（root 权限，初始化数据目录权限）
+    setup_script: |
+      #!/bin/sh
+      # 创建用户
+      adduser -u 65532 -D -h /app -s /bin/sh nonroot 2>/dev/null || true
+
+      # 创建数据目录并设置权限
+      mkdir -p /data
+      chown -R 65532:65532 /data
+
+      echo "Setup complete: data directory /data initialized"
+
+      # 启动服务
+      su -s /bin/sh nonroot -c "/app/gosmee-web-server"
+
+    # 环境变量配置
+    environment:
+      # 服务监听配置
+      - GOSMEE_HOST=0.0.0.0  # 监听地址，host.lzcapp 表示使用 host 网络模式
+      - GOSMEE_PORT=8080
+
+      # 数据存储配置
+      - GOSMEE_DATA_DIR=/data  # 数据存储根目录
+
+      # Gosmee 配置
+      - GOSMEE_MAX_CLIENTS_PER_USER=100  # 每用户最大实例数
+      - GOSMEE_MAX_STORAGE_PER_USER=10737418240  # 每用户存储配额（10GB）
+      - GOSMEE_EVENT_RETENTION_DAYS=30  # 事件保留天数
+      - GOSMEE_LOG_RETENTION_DAYS=30  # 日志保留天数
+      - GOSMEE_AUTO_RESTART=false  # 自动重启
+      - GOSMEE_MAX_RESTART_ATTEMPTS=3  # 最大重启次数
+
+      # CORS 跨域配置
+      - GOSMEE_CORS_ALLOWED_ORIGINS=http://localhost:8080,https://${LAZYCAT_APP_DOMAIN}
+
+      # 时区配置
+      - TZ=Asia/Shanghai
+
+      # OIDC 认证配置（自动注入，无需手动修改）
+      - GOSMEE_OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - GOSMEE_OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - GOSMEE_OIDC_ISSUER=${LAZYCAT_AUTH_OIDC_ISSUER_URI}
+      - GOSMEE_OIDC_REDIRECT_URL=https://${LAZYCAT_APP_DOMAIN}/api/v1/auth/callback
+
+    # 健康检测
+    health_check:
+      test:
+        - CMD-SHELL
+        - wget -t 1 -T 3 -q -O /dev/null http://localhost:8080/api/v1/health
+      start_period: 30s
+
+    # 数据持久化
+    binds:
+      - /lzcapp/var/data:/data                      # 用户数据持久化
